@@ -19,6 +19,25 @@ var api = new ParseServer({
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+  },
+  // Enable email verification
+  verifyUserEmails: true,
+  // The public URL of your app.
+  // This will appear in the link that is used to verify email addresses and reset passwords.
+  publicServerURL: process.env.PUBLIC_SERVER_URL || 'http://localhost/parse',
+  // Your apps name. This will appear in the subject and body of the emails that are sent.
+  appName: process.env.APP_NAME || 'Parse Server',
+  // The email adapter
+  emailAdapter: {
+    module: 'parse-server-simple-mailgun-adapter',
+    options: {
+      // The address that your emails come from
+      fromAddress: process.env.EMAIL_ADAPTER_FROM_ADDRESS_URL || 'http://localhost/parse',
+      // Your domain from mailgun.com
+      domain: process.env.EMAIL_ADAPTER_DOMAIN_URL || 'http://localhost/parse',
+      // Your API key from mailgun.com
+      apiKey: process.env.EMAIL_ADAPTER_API_KEY || 'emailApiKey',
+    }
   }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
